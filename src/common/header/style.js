@@ -82,7 +82,7 @@ export const NavSearch = styled.input.attrs({
 export const SearchWrapper = styled.div`
 	position: relative;
 	float: left;
-	.zoom {
+	.iconfont {
 		position: absolute;
 		right: 5px;
 		bottom: 5px;
