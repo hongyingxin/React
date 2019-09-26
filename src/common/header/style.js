@@ -96,3 +96,28 @@ export const SearchWrapper = styled.div`
 		}
 	}
 `;
+
+export const Addition = styled.div`
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 56px;
+`;
+
+export const Button = styled.div`
+	float: right;
+	margin-top: 9px;
+	margin-right: 20px;
+	padding: 0 20px;
+	line-height: 38px;
+	border-radius: 19px;
+	border: 1px solid #ec6149;
+	font-siz: 14px;
+	&.reg {
+		color: #ec6149;
+	}
+	&.writting {
+		color: #fff;
+		background: #ec6149;
+	}
+`
