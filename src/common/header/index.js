@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group'
+import { * as actionCreators } from './store/actionCreators'
 import { 
   HeaderWrapper,
   Logo,
