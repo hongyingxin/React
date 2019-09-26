@@ -1,4 +1,6 @@
-import React from 'react';
+import React from 'react'
+import { Provider } from 'react-redux'
+import store from './store/index'
 import Header from './common/header/index'
 import { GlobaStyle } from './style'
 
@@ -6,7 +8,9 @@ function App() {
   return (
     <div>
       <GlobaStyle />
-      <Header />
+      <Provider store={store}>
+        <Header />
+      </Provider>
     </div>
   );
 }
