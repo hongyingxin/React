@@ -7,7 +7,8 @@ import { fromJS } from 'immutable';
 */
 
 const defaultState = fromJS({
-  focused : false
+  focused : false,
+  list: []
 });
 
 export default (state = defaultState, action) => {
@@ -20,6 +21,10 @@ export default (state = defaultState, action) => {
   }
   if(action.type === constants.SEARCH_BLUR) {
     return state.set('focused',false)
+  }
+  if(action.type === constants.CHANGE_LIST) {
+    /*当你改变list时，list的定义有immutable对象变成普通数组*/
+    return state.set('list', action.data);
   }
   return state
 }
