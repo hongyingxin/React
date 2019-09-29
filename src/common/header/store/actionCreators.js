@@ -1,7 +1,9 @@
+import * as constants from './constants'
+
 export const searchFocus = () => ({
-  type: 'search_focus'
+  type: constants.SEARCH_FOCUS
 })
 
 export const searchBlur = () => ({
-  type: 'search_blur'
+  type: constants.SEARCH_BLUR
 })
