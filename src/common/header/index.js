@@ -10,7 +10,11 @@ import {
   Addition,
   Button,
   SearchWrapper,
-  NavItem
+  NavItem,
+  SearchInfo,
+  SearchInfoTitle,
+  SearchInfoSwitch,
+  SearchInfoItem
 } from './style'
 
 /*  纯组件 
@@ -43,6 +47,7 @@ const Header = (props) => {
           <i className = {props.focused ? 'focused iconfont' : 'iconfont'}>
             &#xe614;
           </i>
+          {getListArea(props.focused)}
         </SearchWrapper>
       </Nav>
       <Addition>
@@ -55,6 +60,30 @@ const Header = (props) => {
     </HeaderWrapper>
   )
 }
+
+const getListArea = (show) => {
+  if(show) {
+    return (
+        <SearchInfo>
+          <SearchInfoTitle>
+            热门搜索
+            <SearchInfoSwitch>换一批</SearchInfoSwitch>
+          </SearchInfoTitle>
+          <div>
+            <SearchInfoItem>微信</SearchInfoItem>
+            <SearchInfoItem>支付宝</SearchInfoItem>
+            <SearchInfoItem>周报</SearchInfoItem>
+            <SearchInfoItem>蚂蚁森林</SearchInfoItem>
+            <SearchInfoItem>蚂蚁金服</SearchInfoItem>
+            <SearchInfoItem>口香糖</SearchInfoItem>
+          </div>
+      </SearchInfo>
+    )
+  }else {
+    return null
+  }
+}
+
 const mapStateToProps = (state) => {
   return {
     focused: state.getIn(['header', 'focused'])
