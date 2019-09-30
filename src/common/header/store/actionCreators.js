@@ -1,6 +1,12 @@
 import * as constants from './constants';
-import { fromJS } from 'immutable'
+import { fromJS } from 'immutable';
 import axios from 'axios';
+
+const changeList = (data) => ({
+  type: constants.CHANGE_LIST,
+  /*注意将data转换成immutable类型*/
+  data: fromJS(data)
+})
 
 export const searchFocus = () => ({
   type: constants.SEARCH_FOCUS
@@ -8,12 +14,6 @@ export const searchFocus = () => ({
 
 export const searchBlur = () => ({
   type: constants.SEARCH_BLUR
-})
-
-const changeList = (data) => ({
-  type: constants.CHANGE_LIST,
-  /*注意将data转换成immutable类型*/
-  data: fromJS(data)
 })
 
 export const getList = () => {
