@@ -14,29 +14,45 @@ import {
   SearchInfo,
   SearchInfoTitle,
   SearchInfoSwitch,
-  SearchInfoItem
+  SearchInfoItem,
+  SearchInfoList
 } from './style'
 
 class Header extends Component{
 
   getListArea = () => {
 
-    const { focused, list } = this.props
+    /* list是immutable类型 */
+    const { focused, list, page, totalPage, mouseIn, handMouseEnter, handMouseLeave, handleChangePage} = this.props;
+    /* toJS  将immutable类型转化成普通的js类型 */
+    const newList = list.toJS();
+    const pageList = [];
 
-    if(focused) {
+		if (newList.length) {
+			for (let i = (page - 1) * 10; i < page * 10; i++) {
+				pageList.push(
+					<SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+				)
+			}
+		}
+
+    if(focused || mouseIn) {
       return (
-          <SearchInfo>
+          <SearchInfo 
+            onMouseEnter={handMouseEnter}
+            onMouseLeave={handMouseLeave}
+          >
             <SearchInfoTitle>
               热门搜索
-              <SearchInfoSwitch>换一批</SearchInfoSwitch>
+              <SearchInfoSwitch
+                onClick={() => handleChangePage(page, totalPage)}
+              >
+                换一批
+              </SearchInfoSwitch>
             </SearchInfoTitle>
-            <div>
-              {
-                list.map((item) => {
-                  return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-                })
-              }
-            </div>
+            <SearchInfoList>
+						  {pageList}
+					</SearchInfoList>
         </SearchInfo>
       )
     }else {
@@ -93,19 +109,40 @@ class Header extends Component{
 const mapStateToProps = (state) => {
   return {
     focused: state.getIn(['header', 'focused']),
-    list: state.getIn(['header', 'list'])
+    list: state.getIn(['header', 'list']),
+    page: state.getIn(['header', 'page']),
+    totalPage: state.getIn(['header', 'totalPage']),
+    mouseIn: state.getIn(['header', 'mouseIn'])
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    /*鼠标移入Input框*/
     handleInputFocus() {
       /*获取ajax数据*/
       dispatch(actionCreators.getList())
       dispatch(actionCreators.searchFocus())
     },
+    /*鼠标移除Input框*/
     handleInputBlur() {
       dispatch(actionCreators.searchBlur())
+    },
+    /*热门搜索移入*/
+    handMouseEnter() {
+      dispatch(actionCreators.mouseEnter())
+    },
+    /*热门搜索移除*/
+    handMouseLeave() {
+      dispatch(actionCreators.mouseLeave())
+    },
+    /*换一换*/
+    handleChangePage(page, totalPage) {
+      if(page < totalPage) {
+        dispatch(actionCreators.changePage(page + 1))
+      }else {
+        dispatch(actionCreators.changePage(1))
+      }
     }
   }
 }
