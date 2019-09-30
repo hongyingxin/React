@@ -63,7 +63,7 @@ class Header extends Component{
 
   render() {
 
-    const { focused, handleInputFocus, handleInputBlur} = this.props
+    const { focused, list, handleInputFocus, handleInputBlur} = this.props
 
     return (
       <HeaderWrapper>
@@ -83,7 +83,8 @@ class Header extends Component{
           >
             <NavSearch
               className = {focused ? 'focused' : ''}
-              onFocus = {handleInputFocus}
+              // onFocus = {handleInputFocus}
+              onFocus = { () => handleInputFocus(list)}
               onBlur = {handleInputBlur}
             >
             </NavSearch>
@@ -120,9 +121,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     /*鼠标移入Input框*/
-    handleInputFocus() {
+    handleInputFocus(list) {
+      
+      /*避免无意义的请求发送*/
+      (list.size === 0 ) && dispatch(actionCreators.getList())
+
       /*获取ajax数据*/
-      dispatch(actionCreators.getList())
+      // dispatch(actionCreators.getList())
       dispatch(actionCreators.searchFocus())
     },
     /*鼠标移除Input框*/
