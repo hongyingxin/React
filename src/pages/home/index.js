@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { 
   HomeWrapper,
   HomeLeft,
-  HomeRight
+  HomeRight,
 } from './style';
 import Topic from './components/Topic';
 import List from './components/List';
